@@ -108,10 +108,10 @@ export class ChallengesController {
     try {
       this.logger.log(`idPartida: ${data}`);
 
-      const idPartida: string = data.idMatch;
-      const desafio: Challenge = data.challenge;
+      const idMatch: string = data.idMatch;
+      const challenge: Challenge = data.challenge;
 
-      await this.challengesService.updateChallengeMatch(idPartida, desafio);
+      await this.challengesService.updateChallengeMatch(idMatch, challenge);
       await channel.ack(originalMsg);
     } catch (error) {
       const message = errorInstance(error);
