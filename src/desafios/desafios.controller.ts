@@ -57,7 +57,7 @@ export class ChallengesController {
     const channel = context.getChannelRef();
     const originalMsg = context.getMessage();
     try {
-      const { idJogador: idPlayer, _id } = data;
+      const { idPlayer, _id } = data;
       this.logger.log(`data: ${JSON.stringify(data)}`);
       if (idPlayer) {
         return await this.challengesService.findChallengeOfPlayer(idPlayer);

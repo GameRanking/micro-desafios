@@ -13,20 +13,25 @@ export class MatchesController {
   private readonly logger = new Logger(MatchesController.name);
 
   @EventPattern('criar-partida')
-  async criarPartida(@Payload() match: Match, @Ctx() rawContext: unknown) {
+  async createMatch(@Payload() match: Match, @Ctx() rawContext: unknown) {
     const context: RmqContext = rawContext as RmqContext;
     const channel = context.getChannelRef();
     const originalMsg = context.getMessage();
+
     try {
       this.logger.log(`match: ${JSON.stringify(match)}`);
-      await this.matchesService.criarPartida(match);
+
+      await this.matchesService.createMatch(match);
       await channel.ack(originalMsg);
     } catch (error) {
       const message = errorInstance(error);
+
       this.logger.log(`error: ${JSON.stringify(message)}`);
+
       const filterAckError = ackErrors.filter((ackError) =>
         message.includes(ackError),
       );
+
       if (filterAckError.length > 0) {
         await channel.ack(originalMsg);
       }

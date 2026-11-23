@@ -20,7 +20,7 @@ export class MatchesService {
 
   private readonly logger = new Logger(MatchesService.name);
 
-  async criarPartida(match: Match): Promise<Match> {
+  async createMatch(match: Match): Promise<Match> {
     try {
       /*
                 Iremos persistir a partida e logo em seguida atualizaremos o
@@ -40,7 +40,7 @@ export class MatchesService {
                 desafio.
         */
       const challenge: Challenge = await this.clientChallenges
-        .send('consultar-desafios', { idJogador: '', _id: match.challenge })
+        .send('consultar-desafios', { idPlayer: '', _id: match.challenge })
         .toPromise();
       /*
                 Acionamos o tópico 'atualizar-desafio-partida' que será
@@ -48,8 +48,8 @@ export class MatchesService {
             */
       return await this.clientChallenges
         .emit('atualizar-desafio-partida', {
-          idPartida: idMatch,
-          desafio: challenge,
+          idMatch: idMatch,
+          challenge: challenge,
         })
         .toPromise();
     } catch (error) {
