@@ -1,13 +1,13 @@
 import { Document } from 'mongoose';
-import { DesafioStatus } from '../desafio-status.enum';
+import { ChallengeStatus } from '../challenge-status.enum';
 
-export interface Desafio extends Document {
-  dataHoraDesafio: Date;
-  status: DesafioStatus;
-  dataHoraSolicitacao: Date;
-  dataHoraResposta?: Date;
-  solicitante: string;
-  categoria: string;
-  partida?: string;
-  jogadores: string[];
+export interface Challenge extends Document {
+  dateTimeChallenge: Date;
+  status: ChallengeStatus;
+  dateTimeRequest: Date;
+  dateTimeResponse?: Date;
+  requester: string;
+  category: string;
+  match?: string;
+  players: string[];
 }

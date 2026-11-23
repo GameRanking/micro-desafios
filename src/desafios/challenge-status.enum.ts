@@ -1,4 +1,4 @@
-export enum DesafioStatus {
+export enum ChallengeStatus {
   REALIZADO = 'REALIZADO',
   PENDENTE = 'PENDENTE',
   ACEITO = 'ACEITO',

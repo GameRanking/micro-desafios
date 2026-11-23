@@ -1,16 +1,16 @@
 import * as mongoose from 'mongoose';
 
-export const PartidaSchema = new mongoose.Schema(
+export const MatchSchema = new mongoose.Schema(
   {
-    desafio: { type: mongoose.Schema.Types.ObjectId },
-    categoria: { type: mongoose.Schema.Types.ObjectId },
+    challenge: { type: mongoose.Schema.Types.ObjectId },
+    category: { type: mongoose.Schema.Types.ObjectId },
     players: [
       {
         type: mongoose.Schema.Types.ObjectId,
       },
     ],
     def: { type: mongoose.Schema.Types.ObjectId },
-    resultado: [{ set: { type: String } }],
+    result: [{ set: { type: String } }],
   },
-  { timestamps: true, collection: 'partidas' },
+  { timestamps: true, collection: 'matches' },
 );
