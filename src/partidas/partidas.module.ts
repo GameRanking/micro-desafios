@@ -13,4 +13,4 @@ import { MatchSchema } from './interfaces/patida.schema';
   controllers: [MatchesController],
   providers: [MatchesService],
 })
-export class PartidasModule {}
+export class MatchesModule {}

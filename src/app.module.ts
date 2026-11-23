@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { DesafiosModule } from './desafios/desafios.module';
-import { PartidasModule } from './partidas/partidas.module';
+import { MatchesModule } from './partidas/partidas.module';
+import { ChallengesModule } from './desafios/desafios.module';
 import { ProxyRMQModule } from './proxyrmq/proxyrmq.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -23,8 +23,8 @@ const createMongoOptions = (configService: ConfigService) => {
       useFactory: (configService: ConfigService) =>
         createMongoOptions(configService),
     }),
-    DesafiosModule,
-    PartidasModule,
+    ChallengesModule,
+    MatchesModule,
     ProxyRMQModule,
   ],
 })

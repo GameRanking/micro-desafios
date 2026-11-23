@@ -15,6 +15,7 @@ export class ChallengesService {
   private readonly logger = new Logger(ChallengesService.name);
 
   async createChallenge(challenge: Challenge): Promise<Challenge> {
+    this.logger.log(challenge);
     try {
       const createdChallenge = new this.challengeModel(challenge);
       createdChallenge.dateTimeRequest = new Date();
@@ -44,7 +45,7 @@ export class ChallengesService {
 
   async findChallengeOfPlayer(_id: any): Promise<Challenge[] | Challenge> {
     try {
-      return await this.challengeModel.find().where('jogadores').in(_id).exec();
+      return await this.challengeModel.find().where('players').in(_id).exec();
     } catch (error) {
       const message = errorInstance(error);
       this.logger.error(`error: ${JSON.stringify(message)}`);

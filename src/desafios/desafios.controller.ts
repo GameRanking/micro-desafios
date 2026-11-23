@@ -29,6 +29,7 @@ export class ChallengesController {
     const context: RmqContext = rawContext as RmqContext;
     const channel = context.getChannelRef();
     const originalMsg = context.getMessage();
+    this.logger.log(`desafio: ${JSON.stringify(challenge)}`);
 
     try {
       this.logger.log(`desafio: ${JSON.stringify(challenge)}`);
@@ -51,9 +52,8 @@ export class ChallengesController {
   @MessagePattern('consultar-desafios')
   async findChallenges(
     @Payload() data: any,
-    @Ctx() rawContext: unknown,
+    @Ctx() context: RmqContext,
   ): Promise<Challenge[] | Challenge | null> {
-    const context: RmqContext = rawContext as RmqContext;
     const channel = context.getChannelRef();
     const originalMsg = context.getMessage();
     try {
@@ -72,10 +72,7 @@ export class ChallengesController {
   }
 
   @EventPattern('atualizar-desafio')
-  async updateChallenge(
-    @Payload() data: UpdateChallenge,
-    @Ctx() rawContext: unknown,
-  ) {
+  async updateChallenge(@Payload() data: any, @Ctx() rawContext: unknown) {
     const context: RmqContext = rawContext as RmqContext;
     const channel = context.getChannelRef();
     const originalMsg = context.getMessage();
