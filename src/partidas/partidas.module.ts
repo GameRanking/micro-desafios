@@ -1,9 +1,16 @@
 import { Module } from '@nestjs/common';
-import { PartidasController } from './partidas.controller';
-import { PartidasService } from './partidas.service';
+import { MatchesController } from './partidas.controller';
+import { MatchesService } from './partidas.service';
+import { ProxyRMQModule } from '../proxyrmq/proxyrmq.module';
+import { MongooseModule } from '@nestjs/mongoose';
+import { MatchSchema } from './interfaces/patida.schema';
 
 @Module({
-  controllers: [PartidasController],
-  providers: [PartidasService]
+  imports: [
+    MongooseModule.forFeature([{ name: 'Match', schema: MatchSchema }]),
+    ProxyRMQModule,
+  ],
+  controllers: [MatchesController],
+  providers: [MatchesService],
 })
-export class PartidasModule {}
+export class MatchesModule {}

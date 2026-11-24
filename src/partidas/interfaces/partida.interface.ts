@@ -1,13 +1,13 @@
 import { Document } from 'mongoose';
 
-export interface Partida extends Document {
-  categoria: string;
-  desafio: string;
-  jogadores: string[];
+export interface Match extends Document {
+  category: string;
+  challenge: string;
+  players: string[];
   def: string;
-  resultado: Array<Resultado>;
+  result: Array<Result>;
 }
 
-export interface Resultado {
+export interface Result {
   set: string;
 }

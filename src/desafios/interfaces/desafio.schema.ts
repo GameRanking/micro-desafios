@@ -1,28 +1,25 @@
-import { Document } from 'mongoose';
-import { DesafioStatus } from '../desafio-status.enum';
-
 import * as mongoose from 'mongoose';
 
-export const DesafioSchema = new mongoose.Schema(
+export const ChallengeSchema = new mongoose.Schema(
   {
-    dataHoraDesafio: { type: Date },
+    dateTimeChallenge: { type: Date },
     status: { type: String },
-    dataHoraSolicitacao: { type: Date },
-    dataHoraResposta: { type: Date },
+    dateTimeRequest: { type: Date },
+    dateTimeResponse: { type: Date },
     //solicitante: {type: mongoose.Schema.Types.ObjectId, ref: "Jogador"},
-    solicitante: { type: mongoose.Schema.Types.ObjectId },
+    requester: { type: mongoose.Schema.Types.ObjectId },
     //categoria: {type: String },
-    categoria: { type: mongoose.Schema.Types.ObjectId },
-    jogadores: [
+    category: { type: mongoose.Schema.Types.ObjectId },
+    players: [
       {
         type: mongoose.Schema.Types.ObjectId,
         //ref: "Jogador"
       },
     ],
-    partida: {
+    match: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Partida',
+      ref: 'matches',
     },
   },
-  { timestamps: true, collection: 'desafios' },
+  { timestamps: true, collection: 'challenges' },
 );
