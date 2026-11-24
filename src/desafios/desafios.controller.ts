@@ -76,15 +76,20 @@ export class ChallengesController {
     const originalMsg = context.getMessage();
     try {
       this.logger.log(`data: ${JSON.stringify(data)}`);
+
       const _id: string = data._id;
+      this.logger.log(`id: ${_id}`);
       const challenge: Challenge = data.challenge;
+
       await this.challengesService.updateChallenge(_id, challenge);
       await channel.ack(originalMsg);
     } catch (error) {
       const message = errorInstance(error);
+
       const filterAckError = ackErrors.filter((ackError) =>
         message.includes(ackError),
       );
+
       if (filterAckError.length > 0) {
         await channel.ack(originalMsg);
       }
@@ -101,7 +106,7 @@ export class ChallengesController {
     const originalMsg = context.getMessage();
 
     try {
-      this.logger.log(`idPartida: ${data}`);
+      this.logger.log(`idPartida: ${JSON.stringify(data)}`);
 
       const idMatch: string = data.idMatch;
       const challenge: Challenge = data.challenge;
