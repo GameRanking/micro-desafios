@@ -9,13 +9,11 @@ import {
 } from '@nestjs/microservices';
 import type { Challenge } from './interfaces/desafio.interface';
 import { errorInstance } from '../common/ErrorInstance';
-import { raw } from '@nestjs/mongoose';
 import type { UpdateChallengeMatch } from '../common/interfaces/updateChallengeMatch.interface';
-import type { UpdateChallenge } from '../common/interfaces/updateChallenge.interface';
 
 const ackErrors: string[] = ['E11000'];
 
-@Controller('desafios')
+@Controller()
 export class ChallengesController {
   constructor(private readonly challengesService: ChallengesService) {}
 
@@ -29,10 +27,10 @@ export class ChallengesController {
     const context: RmqContext = rawContext as RmqContext;
     const channel = context.getChannelRef();
     const originalMsg = context.getMessage();
-    this.logger.log(`desafio: ${JSON.stringify(challenge)}`);
 
     try {
       this.logger.log(`desafio: ${JSON.stringify(challenge)}`);
+
       await this.challengesService.createChallenge(challenge);
       await channel.ack(originalMsg);
     } catch (error) {
@@ -78,7 +76,7 @@ export class ChallengesController {
     const originalMsg = context.getMessage();
     try {
       this.logger.log(`data: ${JSON.stringify(data)}`);
-      const _id: string = data.id;
+      const _id: string = data._id;
       const challenge: Challenge = data.challenge;
       await this.challengesService.updateChallenge(_id, challenge);
       await channel.ack(originalMsg);

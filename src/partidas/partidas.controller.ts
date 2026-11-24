@@ -6,7 +6,7 @@ import { errorInstance } from '../common/ErrorInstance';
 
 const ackErrors: string[] = ['E11000'];
 
-@Controller('partidas')
+@Controller()
 export class MatchesController {
   constructor(private readonly matchesService: MatchesService) {}
 
