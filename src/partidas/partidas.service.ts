@@ -13,9 +13,12 @@ export class MatchesService {
     @InjectModel('Match') private readonly matchModel: Model<Match>,
     private clientProxyGameRanking: ClientProxyGameRanking,
   ) {
+    this.clientRankings =
+      this.clientProxyGameRanking.getClientProxyRankingsInstance();
     this.clientChallenges =
       this.clientProxyGameRanking.getClientProxyChallengesInstance();
   }
+  private clientRankings;
   private clientChallenges;
 
   private readonly logger = new Logger(MatchesService.name);
@@ -46,10 +49,20 @@ export class MatchesService {
                 Acionamos o tópico 'atualizar-desafio-partida' que será
                 responsável por atualizar o desafio.
             */
-      return await this.clientChallenges
+      await this.clientChallenges
         .emit('atualizar-desafio-partida', {
           idMatch: idMatch,
           challenge: challenge,
+        })
+        .toPromise();
+
+      /* Enviamos a partida para o microservice rankings,
+        indicando a necessidade de processamento desta partida
+      */
+      return await this.clientRankings
+        .emit('processar-partida', {
+          idMatch: idMatch,
+          match: match,
         })
         .toPromise();
     } catch (error) {
